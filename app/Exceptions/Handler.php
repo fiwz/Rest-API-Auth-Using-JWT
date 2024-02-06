@@ -33,5 +33,48 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        // Custom Handler starts here
+
+        $this->renderable(function (MethodNotAllowedHttpException $e) {
+            return response()->json([
+                'error' => 'Method Not Allowed.',
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], SymfonyResponse::HTTP_METHOD_NOT_ALLOWED);
+        });
+
+        $this->renderable(function (NotFoundHttpException $e) {
+            return response()->json([
+                'error' => 'Not Found.',
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], SymfonyResponse::HTTP_NOT_FOUND);
+        });
+
+        $this->renderable(function (BadMethodCallException $e) {
+            return response()->json([
+                'error' => 'Bad Method Call.',
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], SymfonyResponse::HTTP_FORBIDDEN);
+        });
+
+        $this->renderable(function (UnauthorizedException $e) {
+            return response()->json([
+                'error' => 'You do not have the required authorization.',
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], SymfonyResponse::HTTP_UNAUTHORIZED);
+        });
+
+        // All Exception goes here, this below code is experimental
+        // $this->renderable(function (Exception $e) {
+        //     return response()->json([
+        //         'error' => 'Error ' . $e->getMessage(),
+        //         'success' => false,
+        //         'message' => $e->getMessage(),
+        //     ], SymfonyResponse::HTTP_BAD_REQUEST);
+        // });
     }
 }

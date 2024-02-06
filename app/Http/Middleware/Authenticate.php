@@ -15,4 +15,21 @@ class Authenticate extends Middleware
     {
         return $request->expectsJson() ? null : route('login');
     }
+
+    /**
+     * unauthenticated
+     * Custom error handler for unauthorized user
+     *
+     * @param  mixed $request
+     * @param  mixed $guards
+     * @return void
+     */
+    protected function unauthenticated($request, array $guards)
+    {
+        abort(response()->json([
+            'error' => 'You do not have the required authorization.',
+            'success' => false,
+            'message' => 'Unauthorized.',
+        ], Response::HTTP_UNAUTHORIZED));
+    }
 }

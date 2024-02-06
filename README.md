@@ -18,7 +18,7 @@ Sauce: https://laracasts.com/discuss/channels/laravel/custom-message-for-unautho
 
 ## Branch
 - master
-- feature/custom-error-handling-byimansugitman
+- feature/custom-error-handling-byimansugirman
 
 ## How to Run Application
 
