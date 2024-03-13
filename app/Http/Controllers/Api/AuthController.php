@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Http\Response;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class AuthController extends Controller
 {
@@ -104,6 +105,17 @@ class AuthController extends Controller
             ], Response::HTTP_OK);
         }
 
+        // throw error option #1
+        // throw(new \Exception('Wrong credentials!'));
+        // throw(new \Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException('Wrong credentials!'));
+
+        // return error response
+        // format response do not consistent yet, next will fix it
+        return response()->json([
+            'error' => 'Bad Request',
+            'success' => false,
+            'message' => 'Wrong credentials!',
+        ], SymfonyResponse::HTTP_BAD_REQUEST);
     }
 
     public function logout ()
@@ -124,5 +136,11 @@ class AuthController extends Controller
                 'data' => []
             ], Response::HTTP_OK);
         }
+
+        return response()->json([
+            'error' => 'Internal Server Error',
+            'success' => false,
+            'message' => 'Something went wrong, try again in a moment!',
+        ], SymfonyResponse::HTTP_INTERNAL_SERVER_ERROR);
     }
 }
