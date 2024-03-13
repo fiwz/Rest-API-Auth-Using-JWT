@@ -34,4 +34,24 @@ class UserController extends Controller
             ]
         ], Response::HTTP_OK);
     }
+
+    public function getList(Request $request)
+    {
+        $list = $this->user->select('name', 'email');
+        if (isset($request['search']) && !empty($request['search'])) {
+            $list = $list->where('name', 'like', '%'.$request['search'].'%')
+                ->orWhere('email', 'like', '%'.$request['search'].'%');
+        }
+        $list = $list->orderBy('name', 'ASC')->get();
+        return response()->json([
+            'meta' => [
+                'code' => Response::HTTP_OK,
+                'status' => 'success',
+                'messsage' => 'Data fetched successfully!'
+            ],
+            'data' => [
+                'user' => $list
+            ]
+        ], Response::HTTP_OK);
+    }
 }
