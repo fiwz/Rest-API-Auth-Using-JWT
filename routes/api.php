@@ -28,4 +28,5 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/users', [UserController::class, 'getList'])->name('user.list');
+    Route::post('/users', [UserController::class, 'store'])->name('user.store');
 });
