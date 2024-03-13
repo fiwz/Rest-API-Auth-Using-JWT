@@ -28,3 +28,18 @@ php artisan serve
 ```
 
 Tested on Firefox
+
+## Testing
+
+Unit Test with PHPUnit
+
+```bash
+./vendor/bin/phpunit tests/Feature/Http/Controllers/Api/UserControllerTest.php
+```
+
+References:
+- https://perogeremmer.medium.com/bermain-dengan-php-unit-test-di-laravel-part-1-d67771795733
+
+- https://laravel.com/docs/10.x/http-tests#assert-json-validation-errors
+
+- https://semaphoreci.com/community/tutorials/getting-started-with-phpunit-in-laravel
